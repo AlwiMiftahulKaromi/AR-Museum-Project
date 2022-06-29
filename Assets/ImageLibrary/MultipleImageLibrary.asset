@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: MultipleImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5580981371032660135
+  m_GuidHigh: 8424815899425951405
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4859884432776235548
+      m_GuidHigh: 1281088604698200194
+    m_SerializedTextureGuid:
+      m_GuidLow: 16808744960387332396
+      m_GuidHigh: 12623873201127803915
+    m_Size: {x: 0.05, y: 0.05}
+    m_SpecifySize: 1
+    m_Name: Catopsilia Scylla
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5449862146289800757
+      m_GuidHigh: 8699558443390431644
+    m_SerializedTextureGuid:
+      m_GuidLow: 13773199644830172815
+      m_GuidHigh: 10990639159401426506
+    m_Size: {x: 0.05, y: 0.05}
+    m_SpecifySize: 1
+    m_Name: Limenitis Lymire
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5682024871536408051
+      m_GuidHigh: 341676190258215333
+    m_SerializedTextureGuid:
+      m_GuidLow: 8985963481443093050
+      m_GuidHigh: 2162193209881269898
+    m_Size: {x: 0.05, y: 0.05}
+    m_SpecifySize: 1
+    m_Name: Papilio Blumei
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5082029768180678138
+      m_GuidHigh: 11618880804622158222
+    m_SerializedTextureGuid:
+      m_GuidLow: 8697829724895087503
+      m_GuidHigh: 7025961891668124233
+    m_Size: {x: 0.05, y: 0.05}
+    m_SpecifySize: 1
+    m_Name: Cressida Cressida
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5761421054924295078
+      m_GuidHigh: 8611811708860873617
+    m_SerializedTextureGuid:
+      m_GuidLow: 8621030441414079071
+      m_GuidHigh: 2317609234054642043
+    m_Size: {x: 0.05, y: 0.05}
+    m_SpecifySize: 1
+    m_Name: Sayton
+    m_Texture: {fileID: 0}
