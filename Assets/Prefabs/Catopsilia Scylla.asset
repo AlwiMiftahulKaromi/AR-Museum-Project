@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dae4501572e1418791be3e3bf1f7faa, type: 3}
-  m_Name: AR Core Settings
+  m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
+  m_Name: Catopsilia Scylla
   m_EditorClassIdentifier: 
-  m_Requirement: 0
-  m_Depth: 0
-  m_IgnoreGradleVersion: 1
+  insectPrefab: {fileID: 2627909816164820248, guid: 780915090249cea4094e7725cdaddef2, type: 3}
+  insectFamily: Catopsilia Scylla
+  insectDescription: Catopsilia Scylla adalah kubus.

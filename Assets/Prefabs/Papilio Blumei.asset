@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dae4501572e1418791be3e3bf1f7faa, type: 3}
-  m_Name: AR Core Settings
+  m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
+  m_Name: Papilio Blumei
   m_EditorClassIdentifier: 
-  m_Requirement: 0
-  m_Depth: 0
-  m_IgnoreGradleVersion: 1
+  insectPrefab: {fileID: 412256333744396885, guid: 4baaccab8f887314a9aa86e7f5d7d9aa, type: 3}
+  insectFamily: Papilio Blumei
+  insectDescription: Papilio Blumei adalah kupu-kupu.

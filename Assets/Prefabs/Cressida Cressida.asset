@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dae4501572e1418791be3e3bf1f7faa, type: 3}
-  m_Name: AR Core Settings
+  m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
+  m_Name: Cressida Cressida
   m_EditorClassIdentifier: 
-  m_Requirement: 0
-  m_Depth: 0
-  m_IgnoreGradleVersion: 1
+  insectPrefab: {fileID: 8711107364095498455, guid: ac3a717b8d274044d9706f3abea5ce81, type: 3}
+  insectFamily: Cressida Cressida
+  insectDescription: Cressida Cressida adalah silinder.

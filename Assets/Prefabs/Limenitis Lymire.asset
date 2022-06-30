@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dae4501572e1418791be3e3bf1f7faa, type: 3}
-  m_Name: AR Core Settings
+  m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
+  m_Name: Limenitis Lymire
   m_EditorClassIdentifier: 
-  m_Requirement: 0
-  m_Depth: 0
-  m_IgnoreGradleVersion: 1
+  insectPrefab: {fileID: 4347762478857591319, guid: 3ad20ab4c6f0fe24f9aceb0ee2fff9a3, type: 3}
+  insectFamily: Limenitis Lymire
+  insectDescription: Limenitis Lymire adalah bola.
