@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Insect : MonoBehaviour
+[CreateAssetMenu(fileName = "New Insect", menuName = "Insect")]
+public class Insect : ScriptableObject
 {
-    new public string insectFamily = "Default Family";
-    public string insectDescription = "Default Description";
-
-    public virtual string GetInsectDescription()
-    {
-        return insectDescription;
-    }
+	public GameObject insectPrefab;
+	public string insectSpecies;
+	public string insectFamily;
+	public string insectDescription;
 }

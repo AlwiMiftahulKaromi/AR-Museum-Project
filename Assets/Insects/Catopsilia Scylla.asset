@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
+  m_Name: Catopsilia Scylla
+  m_EditorClassIdentifier: 
+  insectPrefab: {fileID: 2627909816164820248, guid: 780915090249cea4094e7725cdaddef2, type: 3}
+  insectSpecies: Catopsilia Scylla
+  insectFamily: Pieridae
+  insectDescription: ini kupu-kupu kuning

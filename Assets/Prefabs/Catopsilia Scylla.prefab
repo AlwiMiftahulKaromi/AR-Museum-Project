@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8104809128821622532}
   - component: {fileID: 7658826378176301241}
   - component: {fileID: 7154633888140627799}
-  - component: {fileID: 5640677684651684819}
   m_Layer: 0
   m_Name: Catopsilia Scylla
   m_TagString: Untagged
@@ -96,15 +95,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5640677684651684819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2627909816164820248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

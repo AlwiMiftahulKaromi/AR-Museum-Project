@@ -10,9 +10,18 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 {
     [SerializeField]
     private Text imageTrackedText; //ini untuk memanggil ImageTrackedText UI yang terdapat di Canvas
+    [SerializeField]
+    private Text insectSpeciesText;
+    [SerializeField] 
+    private Text insectFamilyText;
+    [SerializeField] 
+    private Text insectDescriptionText;
 
     [SerializeField]
     private GameObject[] arObjectsToPlace; //membuat list baru untuk menyimpan prefab yang akan digunakan
+
+    [SerializeField]
+    private Insect[] arScriptableObjects;
 
     [SerializeField]
     private Vector3 scaleFactor = new Vector3(0.1f, 0.1f, 0.1f); //untuk scaling prefab
@@ -21,7 +30,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                                                          //berfungsi untuk mendeklarasikan Serialized Library (XR Reference Image Library) yang nantinya akan digunakan
                                                          //juga berfungsi untuk mendeklarasikan Max Number Of Moving Images
 
-    private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>(); 
+    private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
+    private Dictionary<string, Insect> arObjectsData = new Dictionary<string, Insect>();
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
 
@@ -30,12 +40,20 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
 
         // Setup semua game objects didalam Dictionary
-        foreach (GameObject arObject in arObjectsToPlace)
+        /*foreach (GameObject arObject in arObjectsToPlace)
         {
             GameObject newARObject = Instantiate(arObject, Vector3.zero, Quaternion.identity);
             newARObject.name = arObject.name;
             arObjects.Add(arObject.name, newARObject);
+        }*/
+        foreach (Insect arObject in arScriptableObjects)
+        {
+            GameObject newARObject = Instantiate(arObject.insectPrefab, Vector3.zero, Quaternion.identity);
+            newARObject.name = arObject.name;
+            arObjects.Add(arObject.name, newARObject);
+            arObjectsData.Add(arObject.name, arObject);
         }
+
     }
 
     void OnEnable()
@@ -63,6 +81,14 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             {
                 currentActiveQR = trackedImage.referenceImage.name;
                 imageTrackedText.text = currentActiveQR;
+
+                //new
+                Insect goARObjectData = arObjectsData[currentActiveQR];
+                insectSpeciesText.text = goARObjectData.insectSpecies;
+                insectFamilyText.text = goARObjectData.insectFamily;
+                insectDescriptionText.text = goARObjectData.insectDescription;
+                //till here
+
                 AssignGameObject(currentActiveQR, trackedImage.transform.position);
             }
             else
@@ -85,7 +111,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private void UpdateARImage(ARTrackedImage trackedImage)
     {
         // Display nama dari tracked image ke Canvas (ImageTrackedText UI)
-        imageTrackedText.text = trackedImage.referenceImage.name;
+        //imageTrackedText.text = trackedImage.referenceImage.name;
 
         // Panggil fungsi AssignGameObject dengan nama dan posisi dari trackedImage sebagai parameternya
         AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);

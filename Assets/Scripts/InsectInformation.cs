@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class InsectInformation : MonoBehaviour
 {
-	public Text insectName;
-	public Text insectDescription;
+	//public Insect insect;
+	public Text insectSpeciesText;
+	public Text insectFamilyText;
+	public Text insectDescriptionText;
 
-	public void SetUp(string name, string description)
+	/*void Start()
 	{
-		insectName.text = name;
-		insectDescription.text = description;
-	}
+		insectFamilyText.text = insect.insectFamily;
+		insectDescriptionText.text = insect.insectDescription;
+	}*/
+
 }
