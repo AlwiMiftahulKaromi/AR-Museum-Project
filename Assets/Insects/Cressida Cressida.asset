@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Cressida Cressida
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 8711107364095498455, guid: ac3a717b8d274044d9706f3abea5ce81, type: 3}
+  insectKey: 1937618
   insectSpecies: Cressida Cressida
   insectFamily: Papilionidae
   insectDescription: ini kupu-kupu coklat

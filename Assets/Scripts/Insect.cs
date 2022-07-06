@@ -6,7 +6,6 @@ using UnityEngine;
 public class Insect : ScriptableObject
 {
 	public GameObject insectPrefab;
-	public string insectSpecies;
-	public string insectFamily;
+	public int insectKey;
 	public string insectDescription;
 }

@@ -1,21 +1,37 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.UI;
 using UnityEngine.XR.ARSubsystems;
+using SimpleJSON;
+using TMPro;
 
 [RequireComponent(typeof(ARTrackedImageManager))]
 public class TrackedImageInfoMultipleManager : MonoBehaviour
 {
+    /*[SerializeField]
+    private Text imageTrackedText; //ini untuk memanggil ImageTrackedText UI yang terdapat di Canvas*/
     [SerializeField]
-    private Text imageTrackedText; //ini untuk memanggil ImageTrackedText UI yang terdapat di Canvas
+    private TextMeshProUGUI insectSpeciesText;
     [SerializeField]
-    private Text insectSpeciesText;
+    private TextMeshProUGUI insectGenusText;
     [SerializeField] 
-    private Text insectFamilyText;
-    [SerializeField] 
+    private TextMeshProUGUI insectFamilyText;
+    [SerializeField]
+    private TextMeshProUGUI insectOrderText;
+
+    [SerializeField]
+    private TextMeshProUGUI insectKeyText;
+
+    [SerializeField]
     private Text insectDescriptionText;
+
+
+    private readonly string baseApiGBIFURL = "https://api.gbif.org/v1/";
+    int insectGBIFKey = 0;
 
     [SerializeField]
     private GameObject[] arObjectsToPlace; //membuat list baru untuk menyimpan prefab yang akan digunakan
@@ -80,13 +96,16 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             if (trackedImage.trackingState == TrackingState.Tracking)
             {
                 currentActiveQR = trackedImage.referenceImage.name;
-                imageTrackedText.text = currentActiveQR;
+                //imageTrackedText.text = currentActiveQR;
 
                 //new
                 Insect goARObjectData = arObjectsData[currentActiveQR];
-                insectSpeciesText.text = goARObjectData.insectSpecies;
-                insectFamilyText.text = goARObjectData.insectFamily;
                 insectDescriptionText.text = goARObjectData.insectDescription;
+
+                insectGBIFKey = goARObjectData.insectKey;
+                StartCoroutine(GetInsectAtKey(insectGBIFKey));
+
+                
                 //till here
 
                 AssignGameObject(currentActiveQR, trackedImage.transform.position);
@@ -106,6 +125,36 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             arObjects[trackedImage.name].SetActive(false);
         }
         */
+    }
+
+    IEnumerator GetInsectAtKey(int insectGBIFnubKey)
+    {
+        insectKeyText.text = insectGBIFnubKey.ToString();
+
+        string insectApiGBIFURL = baseApiGBIFURL + "species/" + insectGBIFnubKey.ToString();
+
+        UnityWebRequest insectInfoRequest = UnityWebRequest.Get(insectApiGBIFURL);
+        yield return insectInfoRequest.SendWebRequest();
+
+        if (insectInfoRequest.isNetworkError || insectInfoRequest.isHttpError)
+        {
+            Debug.LogError(insectInfoRequest.error);
+            yield break;
+        }
+
+        JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
+
+        string insectSpecies = insectInfo["species"];
+        insectSpeciesText.text = insectSpecies;
+
+        string insectGenus = insectInfo["genus"];
+        insectGenusText.text = insectGenus;
+
+        string insectFamily = insectInfo["family"];
+        insectFamilyText.text = insectFamily;
+
+        string insectOrder = insectInfo["order"];
+        insectOrderText.text = insectOrder;
     }
 
     private void UpdateARImage(ARTrackedImage trackedImage)

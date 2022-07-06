@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Papilio Blumei
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 412256333744396885, guid: 4baaccab8f887314a9aa86e7f5d7d9aa, type: 3}
+  insectKey: 1937940
   insectSpecies: Papilio Blumei
   insectFamily: Papilionidae
   insectDescription: ini kupu-kupu ijo
