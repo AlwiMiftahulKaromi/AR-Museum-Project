@@ -15,6 +15,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     /*[SerializeField]
     private Text imageTrackedText; //ini untuk memanggil ImageTrackedText UI yang terdapat di Canvas*/
     [SerializeField]
+    private RawImage insectRawImage;
+    [SerializeField]
     private TextMeshProUGUI insectSpeciesText;
     [SerializeField]
     private TextMeshProUGUI insectGenusText;
@@ -131,7 +133,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     {
         insectKeyText.text = insectGBIFnubKey.ToString();
 
-        string insectApiGBIFURL = baseApiGBIFURL + "species/" + insectGBIFnubKey.ToString();
+        string insectApiGBIFURL = baseApiGBIFURL + "occurrence/search?taxonkey=" + insectGBIFnubKey.ToString();
 
         UnityWebRequest insectInfoRequest = UnityWebRequest.Get(insectApiGBIFURL);
         yield return insectInfoRequest.SendWebRequest();
@@ -144,17 +146,30 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
         JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
 
-        string insectSpecies = insectInfo["species"];
+        string insectSpecies = insectInfo["results"][0]["species"];
         insectSpeciesText.text = insectSpecies;
 
-        string insectGenus = insectInfo["genus"];
+        string insectGenus = insectInfo["results"][0]["genus"];
         insectGenusText.text = insectGenus;
 
-        string insectFamily = insectInfo["family"];
+        string insectFamily = insectInfo["results"][0]["family"];
         insectFamilyText.text = insectFamily;
 
-        string insectOrder = insectInfo["order"];
+        string insectOrder = insectInfo["results"][0]["order"];
         insectOrderText.text = insectOrder;
+
+        string insectSpriteURL = insectInfo["results"][0]["media"][0]["identifier"];
+        //get insect sprite
+        UnityWebRequest insectSpriteRequest = UnityWebRequestTexture.GetTexture(insectSpriteURL);
+
+        yield return insectSpriteRequest.SendWebRequest();
+
+        if (insectSpriteRequest.isNetworkError || insectSpriteRequest.isHttpError)
+        {
+            Debug.LogError(insectSpriteRequest.error);
+            yield break;
+        }
+        insectRawImage.texture = DownloadHandlerTexture.GetContent(insectSpriteRequest);
     }
 
     private void UpdateARImage(ARTrackedImage trackedImage)
