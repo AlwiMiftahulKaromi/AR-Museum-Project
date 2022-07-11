@@ -25,8 +25,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI insectOrderText;
 
-    [SerializeField]
-    private TextMeshProUGUI insectKeyText;
+    /*[SerializeField]
+    private TextMeshProUGUI insectKeyText;*/
 
     [SerializeField]
     private Text insectDescriptionText;
@@ -131,7 +131,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
     IEnumerator GetInsectAtKey(int insectGBIFnubKey)
     {
-        insectKeyText.text = insectGBIFnubKey.ToString();
+        //insectKeyText.text = insectGBIFnubKey.ToString();
 
         string insectApiGBIFURL = baseApiGBIFURL + "occurrence/search?taxonkey=" + insectGBIFnubKey.ToString();
 
@@ -146,21 +146,22 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
         JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
 
-        string insectSpecies = insectInfo["results"][0]["species"];
+        string insectSpecies = "Species : " + insectInfo["results"][0]["species"];
         insectSpeciesText.text = insectSpecies;
 
-        string insectGenus = insectInfo["results"][0]["genus"];
+        string insectGenus = "Genus : " + insectInfo["results"][0]["genus"];
         insectGenusText.text = insectGenus;
 
-        string insectFamily = insectInfo["results"][0]["family"];
+        string insectFamily = "Family   : " + insectInfo["results"][0]["family"];
         insectFamilyText.text = insectFamily;
 
-        string insectOrder = insectInfo["results"][0]["order"];
+        string insectOrder = "Order : " + insectInfo["results"][0]["order"];
         insectOrderText.text = insectOrder;
 
         string insectSpriteURL = insectInfo["results"][0]["media"][0]["identifier"];
+        string insectSpriteSmallURL = insectSpriteURL.Replace("original", "square");
         //get insect sprite
-        UnityWebRequest insectSpriteRequest = UnityWebRequestTexture.GetTexture(insectSpriteURL);
+        UnityWebRequest insectSpriteRequest = UnityWebRequestTexture.GetTexture(insectSpriteSmallURL);
 
         yield return insectSpriteRequest.SendWebRequest();
 
