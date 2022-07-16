@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.XR.ARFoundation;
@@ -12,10 +13,12 @@ using TMPro;
 [RequireComponent(typeof(ARTrackedImageManager))]
 public class TrackedImageInfoMultipleManager : MonoBehaviour
 {
-    /*[SerializeField]
-    private Text imageTrackedText; //ini untuk memanggil ImageTrackedText UI yang terdapat di Canvas*/
+    public string ImageName;
+    [Space]
     [SerializeField]
     private RawImage insectRawImage;
+    public GameObject loading;
+
     [SerializeField]
     private TextMeshProUGUI insectSpeciesText;
     [SerializeField]
@@ -24,52 +27,55 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private TextMeshProUGUI insectFamilyText;
     [SerializeField]
     private TextMeshProUGUI insectOrderText;
-
-    /*[SerializeField]
-    private TextMeshProUGUI insectKeyText;*/
+    
 
     [SerializeField]
     private Text insectDescriptionText;
 
 
     private readonly string baseApiGBIFURL = "https://api.gbif.org/v1/";
-    int insectGBIFKey = 0;
-
-    [SerializeField]
-    private GameObject[] arObjectsToPlace; //membuat list baru untuk menyimpan prefab yang akan digunakan
+    //int insectGBIFKey = 0;
+    int insectGBIFTaxonKey = 0;
 
     [SerializeField]
     private Insect[] arScriptableObjects;
 
     [SerializeField]
-    private Vector3 scaleFactor = new Vector3(0.1f, 0.1f, 0.1f); //untuk scaling prefab
+    private Vector3 scaleFactor = new Vector3(0.05f, 0.05f, 0.05f); //untuk scaling prefab
 
     private ARTrackedImageManager m_TrackedImageManager; //menamakan script ARTrackedImageManager as m_TrackedImageManager
                                                          //berfungsi untuk mendeklarasikan Serialized Library (XR Reference Image Library) yang nantinya akan digunakan
                                                          //juga berfungsi untuk mendeklarasikan Max Number Of Moving Images
 
-    private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>(); //ini buat nyimpen prefab
     private Dictionary<string, Insect> arObjectsData = new Dictionary<string, Insect>();
+
+    //new nyoba buat dictionary buat nyimpen data scientific name //dan ternyata bisa
+    private Dictionary<string, string> scientificNameDictionary = new Dictionary<string, string>();
+    private Dictionary<string, string> genusDictionary = new Dictionary<string, string>();
+    private Dictionary<string, string> familyDictionary = new Dictionary<string, string>();
+    private Dictionary<string, string> orderDictionary = new Dictionary<string, string>();
+    //till here
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
 
 	void Awake()
     {
         m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
-
         // Setup semua game objects didalam Dictionary
-        /*foreach (GameObject arObject in arObjectsToPlace)
-        {
-            GameObject newARObject = Instantiate(arObject, Vector3.zero, Quaternion.identity);
-            newARObject.name = arObject.name;
-            arObjects.Add(arObject.name, newARObject);
-        }*/
+        
         foreach (Insect arObject in arScriptableObjects)
         {
             GameObject newARObject = Instantiate(arObject.insectPrefab, Vector3.zero, Quaternion.identity);
             newARObject.name = arObject.name;
             arObjects.Add(arObject.name, newARObject);
             arObjectsData.Add(arObject.name, arObject);
+
+            //new
+            string namaa = arObject.name;
+            insectGBIFTaxonKey = arObject.insectKey;
+            StartCoroutine(GetInsectAtTaxonKey(namaa, insectGBIFTaxonKey));
+            //till here
         }
 
     }
@@ -89,8 +95,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     {
         foreach (ARTrackedImage trackedImage in eventArgs.added) //Ketika salah satu dari setiap trackedImage yang berada di Serialized Library terdeteksi kamera
         {
-            currentActiveQR = trackedImage.referenceImage.name; //Simpan namanya
-            UpdateARImage(trackedImage); //lalu panggil fungsi UpdateARImage
+            UpdateARImage(trackedImage);
         }
 
         foreach (ARTrackedImage trackedImage in eventArgs.updated) //Ketika imageTracked yang terdeteksi berubah
@@ -98,17 +103,33 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             if (trackedImage.trackingState == TrackingState.Tracking)
             {
                 currentActiveQR = trackedImage.referenceImage.name;
-                //imageTrackedText.text = currentActiveQR;
 
-                //new
                 Insect goARObjectData = arObjectsData[currentActiveQR];
                 insectDescriptionText.text = goARObjectData.insectDescription;
+                insectRawImage.texture = goARObjectData.insectImage;
 
-                insectGBIFKey = goARObjectData.insectKey;
-                StartCoroutine(GetInsectAtKey(insectGBIFKey));
-
-                
+                //new
+                if (scientificNameDictionary != null)
+                {
+                    insectSpeciesText.text = scientificNameDictionary[currentActiveQR];
+                }
+                if (genusDictionary != null)
+                {
+                    insectGenusText.text = "Genus: " + genusDictionary[currentActiveQR];
+                }
+                if (familyDictionary != null)
+                {
+                    insectFamilyText.text = "Family: " + familyDictionary[currentActiveQR];
+                }
+                if (orderDictionary != null)
+                {
+                    insectOrderText.text = "Order: " + orderDictionary[currentActiveQR];
+                }
                 //till here
+
+                /*insectGBIFKey = goARObjectData.insectKey;
+                StartCoroutine(GetInsectAtKey(insectGBIFKey));*/
+
 
                 AssignGameObject(currentActiveQR, trackedImage.transform.position);
             }
@@ -119,17 +140,45 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                     ReAssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);
                 }
             }
-            //UpdateARImage(trackedImage);
         }
-        /*
-        foreach (ARTrackedImage trackedImage in eventArgs.removed)
+        
+        /*foreach (ARTrackedImage trackedImage in eventArgs.removed)
         {
             arObjects[trackedImage.name].SetActive(false);
-        }
-        */
+        }*/
+        
     }
 
-    IEnumerator GetInsectAtKey(int insectGBIFnubKey)
+    //new
+    IEnumerator GetInsectAtTaxonKey(string nama, int insectTaxonKey)
+    {
+        string insectApiGBIFURL = baseApiGBIFURL + "occurrence/search?taxonkey=" + insectTaxonKey.ToString();
+        UnityWebRequest insectInfoRequest = UnityWebRequest.Get(insectApiGBIFURL);
+        yield return insectInfoRequest.SendWebRequest();
+
+        if (insectInfoRequest.isNetworkError || insectInfoRequest.isHttpError)
+        {
+            Debug.LogError(insectInfoRequest.error);
+            yield break;
+        }
+        JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
+
+        string insectScientificName = insectInfo["results"][0]["scientificName"];
+        scientificNameDictionary.Add(nama, insectScientificName);
+
+        string insectGenus = insectInfo["results"][0]["genus"];
+        genusDictionary.Add(nama, insectGenus);
+
+        string insectFamily = insectInfo["results"][0]["family"];
+        familyDictionary.Add(nama, insectFamily);
+
+        string insectOrder = insectInfo["results"][0]["order"];
+        orderDictionary.Add(nama, insectOrder);
+
+    }
+    //till here
+
+    /*IEnumerator GetInsectAtKey(int insectGBIFnubKey)
     {
         //insectKeyText.text = insectGBIFnubKey.ToString();
 
@@ -146,47 +195,75 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
         JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
 
-        string insectSpecies = "Species : " + insectInfo["results"][0]["species"];
-        insectSpeciesText.text = insectSpecies;
+        *//*string insectSpecies = "Species: " + insectInfo["results"][0]["species"];
+        insectSpeciesText.text = insectSpecies;*//*
 
-        string insectGenus = "Genus : " + insectInfo["results"][0]["genus"];
+        string insectGenus = "Genus: " + insectInfo["results"][0]["genus"];
         insectGenusText.text = insectGenus;
 
-        string insectFamily = "Family   : " + insectInfo["results"][0]["family"];
+        string insectFamily = "Family: " + insectInfo["results"][0]["family"];
         insectFamilyText.text = insectFamily;
 
-        string insectOrder = "Order : " + insectInfo["results"][0]["order"];
+        string insectOrder = "Order: " + insectInfo["results"][0]["order"];
         insectOrderText.text = insectOrder;
 
+        *//*
         string insectSpriteURL = insectInfo["results"][0]["media"][0]["identifier"];
-        string insectSpriteSmallURL = insectSpriteURL.Replace("original", "square");
+        string insectSpriteSmallURL = insectSpriteURL.Replace("original", "small");
+        
         //get insect sprite
-        UnityWebRequest insectSpriteRequest = UnityWebRequestTexture.GetTexture(insectSpriteSmallURL);
+        Debug.Log("Loading...");
+        //WWW wwwLoader = new WWW(insectSpriteSmallURL); //create WWW object pointing to the url
+        loading.SetActive(true);
+        //yield return wwwLoader; //start loading whatever in that url (delay happens here)
 
-        yield return insectSpriteRequest.SendWebRequest();
-
-        if (insectSpriteRequest.isNetworkError || insectSpriteRequest.isHttpError)
+        
+        if (!File.Exists(Application.persistentDataPath + ImageName))
         {
-            Debug.LogError(insectSpriteRequest.error);
-            yield break;
+            //if internet available
+            WWW wwwLoader = new WWW(insectSpriteSmallURL);
+            yield return wwwLoader;
+            if (wwwLoader.error == null)
+            {
+                //when image downloaded...
+                Debug.Log("Loaded");
+                loading.SetActive(false);
+                Texture2D textureNew = wwwLoader.texture;
+                insectRawImage.texture = textureNew;
+
+                byte[] dataByte = textureNew.EncodeToPNG();
+                File.WriteAllBytes(Application.persistentDataPath + ImageName, dataByte);
+                Debug.Log("Image Saved");
+            }
+            //if internet not available
+            else
+            {
+                Debug.Log("We Have Error! Please Try Again...");
+            }
         }
-        insectRawImage.texture = DownloadHandlerTexture.GetContent(insectSpriteRequest);
-    }
+        else
+            if (File.Exists(Application.persistentDataPath + ImageName))
+            {
+            loading.SetActive(false);
+                byte[] uploadByte = File.ReadAllBytes(Application.persistentDataPath + ImageName);
+                Texture2D textureNew = new Texture2D(10, 10);
+                textureNew.LoadImage(uploadByte);
+                insectRawImage.texture = textureNew;
+            Debug.Log("Image Loaded");
+        }*//*
+    }*/
 
     private void UpdateARImage(ARTrackedImage trackedImage)
     {
-        // Display nama dari tracked image ke Canvas (ImageTrackedText UI)
-        //imageTrackedText.text = trackedImage.referenceImage.name;
-
         // Panggil fungsi AssignGameObject dengan nama dan posisi dari trackedImage sebagai parameternya
         AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);
 
         //Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
     }
-
     void AssignGameObject(string name, Vector3 newPosition) //Karena di arObjectsToPlace terdapat lebih dari 1 arObject
     {
-        if (arObjectsToPlace != null)
+        if (arObjects != null)
+        //if (arObjectsToPlace != null)
         {
             GameObject goARObject = arObjects[name]; //Maka GameObject yang akan di assign adalah arObject yang memiliki nama yang sama dengan imageTracked
             goARObject.SetActive(true); //Tampilkan (aktifkan) arObject tersebut
@@ -203,9 +280,11 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             }
         }
     }
+
     void ReAssignGameObject(string name, Vector3 newPosition)
     {
-        if (arObjectsToPlace != null)
+        if (arObjects != null)
+        //if (arObjectsToPlace != null)
         {
             GameObject goARObject = arObjects[name];
             goARObject.SetActive(true);

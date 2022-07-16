@@ -8,4 +8,5 @@ public class Insect : ScriptableObject
 	public GameObject insectPrefab;
 	public int insectKey;
 	public string insectDescription;
+	public Texture2D insectImage;
 }

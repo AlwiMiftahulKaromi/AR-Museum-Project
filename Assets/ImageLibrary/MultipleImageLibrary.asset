@@ -55,13 +55,3 @@ MonoBehaviour:
     m_SpecifySize: 1
     m_Name: Cressida Cressida
     m_Texture: {fileID: 0}
-  - m_SerializedGuid:
-      m_GuidLow: 5761421054924295078
-      m_GuidHigh: 8611811708860873617
-    m_SerializedTextureGuid:
-      m_GuidLow: 8621030441414079071
-      m_GuidHigh: 2317609234054642043
-    m_Size: {x: 0.05, y: 0.05}
-    m_SpecifySize: 1
-    m_Name: Sayton
-    m_Texture: {fileID: 0}
