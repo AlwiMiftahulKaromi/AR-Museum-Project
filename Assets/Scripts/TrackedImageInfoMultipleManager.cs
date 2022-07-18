@@ -16,6 +16,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     public string ImageName;
     [Space]
     [SerializeField]
+    private Texture2D noImageFound;
+    [SerializeField]
     private RawImage insectRawImage;
     public GameObject loading;
 
@@ -34,7 +36,6 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
 
     private readonly string baseApiGBIFURL = "https://api.gbif.org/v1/";
-    //int insectGBIFKey = 0;
     int insectGBIFTaxonKey = 0;
 
     [SerializeField]
@@ -55,6 +56,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private Dictionary<string, string> genusDictionary = new Dictionary<string, string>();
     private Dictionary<string, string> familyDictionary = new Dictionary<string, string>();
     private Dictionary<string, string> orderDictionary = new Dictionary<string, string>();
+
+    private Dictionary<string, Texture2D> occurrenceMediaDictionary = new Dictionary<string, Texture2D>();
     //till here
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
@@ -106,7 +109,6 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
                 Insect goARObjectData = arObjectsData[currentActiveQR];
                 insectDescriptionText.text = goARObjectData.insectDescription;
-                insectRawImage.texture = goARObjectData.insectImage;
 
                 //new
                 if (scientificNameDictionary != null)
@@ -125,11 +127,13 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 {
                     insectOrderText.text = "Order: " + orderDictionary[currentActiveQR];
                 }
+                if (occurrenceMediaDictionary != null)
+                {
+                    loading.SetActive(true);
+                    loading.SetActive(false);
+                    insectRawImage.texture = occurrenceMediaDictionary[currentActiveQR];
+                }
                 //till here
-
-                /*insectGBIFKey = goARObjectData.insectKey;
-                StartCoroutine(GetInsectAtKey(insectGBIFKey));*/
-
 
                 AssignGameObject(currentActiveQR, trackedImage.transform.position);
             }
@@ -142,10 +146,10 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             }
         }
         
-        /*foreach (ARTrackedImage trackedImage in eventArgs.removed)
+        foreach (ARTrackedImage trackedImage in eventArgs.removed)
         {
             arObjects[trackedImage.name].SetActive(false);
-        }*/
+        }
         
     }
 
@@ -175,83 +179,61 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         string insectOrder = insectInfo["results"][0]["order"];
         orderDictionary.Add(nama, insectOrder);
 
-    }
-    //till here
+        string insectMediaURL = insectInfo["results"][0]["media"][0]["identifier"];
 
-    /*IEnumerator GetInsectAtKey(int insectGBIFnubKey)
-    {
-        //insectKeyText.text = insectGBIFnubKey.ToString();
-
-        string insectApiGBIFURL = baseApiGBIFURL + "occurrence/search?taxonkey=" + insectGBIFnubKey.ToString();
-
-        UnityWebRequest insectInfoRequest = UnityWebRequest.Get(insectApiGBIFURL);
-        yield return insectInfoRequest.SendWebRequest();
-
-        if (insectInfoRequest.isNetworkError || insectInfoRequest.isHttpError)
+        if (string.IsNullOrEmpty(insectMediaURL))
         {
-            Debug.LogError(insectInfoRequest.error);
-            yield break;
-        }
-
-        JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
-
-        *//*string insectSpecies = "Species: " + insectInfo["results"][0]["species"];
-        insectSpeciesText.text = insectSpecies;*//*
-
-        string insectGenus = "Genus: " + insectInfo["results"][0]["genus"];
-        insectGenusText.text = insectGenus;
-
-        string insectFamily = "Family: " + insectInfo["results"][0]["family"];
-        insectFamilyText.text = insectFamily;
-
-        string insectOrder = "Order: " + insectInfo["results"][0]["order"];
-        insectOrderText.text = insectOrder;
-
-        *//*
-        string insectSpriteURL = insectInfo["results"][0]["media"][0]["identifier"];
-        string insectSpriteSmallURL = insectSpriteURL.Replace("original", "small");
-        
-        //get insect sprite
-        Debug.Log("Loading...");
-        //WWW wwwLoader = new WWW(insectSpriteSmallURL); //create WWW object pointing to the url
-        loading.SetActive(true);
-        //yield return wwwLoader; //start loading whatever in that url (delay happens here)
-
-        
-        if (!File.Exists(Application.persistentDataPath + ImageName))
-        {
-            //if internet available
-            WWW wwwLoader = new WWW(insectSpriteSmallURL);
-            yield return wwwLoader;
-            if (wwwLoader.error == null)
-            {
-                //when image downloaded...
-                Debug.Log("Loaded");
-                loading.SetActive(false);
-                Texture2D textureNew = wwwLoader.texture;
-                insectRawImage.texture = textureNew;
-
-                byte[] dataByte = textureNew.EncodeToPNG();
-                File.WriteAllBytes(Application.persistentDataPath + ImageName, dataByte);
-                Debug.Log("Image Saved");
-            }
-            //if internet not available
-            else
-            {
-                Debug.Log("We Have Error! Please Try Again...");
-            }
+            occurrenceMediaDictionary.Add(nama, noImageFound);
         }
         else
-            if (File.Exists(Application.persistentDataPath + ImageName))
+        {
+            string insectMediaSmallURL = insectMediaURL.Replace("original", "small");
+
+            //get insect sprite
+            Debug.Log("Loading...");
+            //WWW wwwLoader = new WWW(insectSpriteSmallURL); //create WWW object pointing to the url
+            loading.SetActive(true);
+            //yield return wwwLoader; //start loading whatever in that url (delay happens here)
+
+            if (!File.Exists(Application.persistentDataPath + ImageName))
             {
-            loading.SetActive(false);
+                //if internet available
+                WWW wwwLoader = new WWW(insectMediaSmallURL);
+                yield return wwwLoader;
+                if (wwwLoader.error == null)
+                {
+                    //when image downloaded...
+                    Debug.Log("Loaded");
+                    loading.SetActive(false);
+                    Texture2D textureNew = wwwLoader.texture;
+                    //insectRawImage.texture = textureNew;
+                    occurrenceMediaDictionary.Add(nama, textureNew);
+
+                    byte[] dataByte = textureNew.EncodeToPNG();
+                    File.WriteAllBytes(Application.persistentDataPath + ImageName, dataByte);
+                    Debug.Log("Image Saved");
+                }
+                //if internet not available
+                else
+                {
+                    Debug.Log("We Have Error! Please Try Again...");
+                }
+            }
+            else
+                if (File.Exists(Application.persistentDataPath + ImageName))
+            {
+                loading.SetActive(false);
                 byte[] uploadByte = File.ReadAllBytes(Application.persistentDataPath + ImageName);
                 Texture2D textureNew = new Texture2D(10, 10);
                 textureNew.LoadImage(uploadByte);
-                insectRawImage.texture = textureNew;
-            Debug.Log("Image Loaded");
-        }*//*
-    }*/
+                //insectRawImage.texture = textureNew;
+                occurrenceMediaDictionary.Add(nama, textureNew);
+                Debug.Log("Image Loaded");
+            }
+        }   
+
+    }
+    //till here
 
     private void UpdateARImage(ARTrackedImage trackedImage)
     {
