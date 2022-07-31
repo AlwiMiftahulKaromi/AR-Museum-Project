@@ -98,7 +98,11 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     {
         foreach (ARTrackedImage trackedImage in eventArgs.added) //Ketika salah satu dari setiap trackedImage yang berada di Serialized Library terdeteksi kamera
         {
-            UpdateARImage(trackedImage);
+            //UpdateARImage(trackedImage);
+            Vector3 newRot = new Vector3(trackedImage.transform.localEulerAngles.x, trackedImage.transform.localEulerAngles.y, trackedImage.transform.localEulerAngles.z);
+            //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
+            AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
+            //Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
         }
 
         foreach (ARTrackedImage trackedImage in eventArgs.updated) //Ketika imageTracked yang terdeteksi berubah
@@ -134,14 +138,17 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                     insectRawImage.texture = occurrenceMediaDictionary[currentActiveQR];
                 }
                 //till here
-
-                AssignGameObject(currentActiveQR, trackedImage.transform.position);
+                Vector3 newRot = new Vector3(trackedImage.transform.localEulerAngles.x, trackedImage.transform.localEulerAngles.y, trackedImage.transform.localEulerAngles.z);
+                //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
+                AssignGameObject(currentActiveQR, trackedImage.transform.position, newRot);
             }
             else
             {
                 if (currentActiveQR != trackedImage.referenceImage.name)
                 {
-                    ReAssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);
+                    Vector3 newRot = new Vector3(trackedImage.transform.localEulerAngles.x, trackedImage.transform.localEulerAngles.y, trackedImage.transform.localEulerAngles.z);
+                    //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
+                    ReAssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
                 }
             }
         }
@@ -234,15 +241,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
     }
     //till here
-
-    private void UpdateARImage(ARTrackedImage trackedImage)
-    {
-        // Panggil fungsi AssignGameObject dengan nama dan posisi dari trackedImage sebagai parameternya
-        AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);
-
-        //Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
-    }
-    void AssignGameObject(string name, Vector3 newPosition) //Karena di arObjectsToPlace terdapat lebih dari 1 arObject
+    void AssignGameObject(string name, Vector3 newPosition, Vector3 newRotation) //Karena di arObjectsToPlace terdapat lebih dari 1 arObject
     {
         if (arObjects != null)
         //if (arObjectsToPlace != null)
@@ -250,6 +249,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             GameObject goARObject = arObjects[name]; //Maka GameObject yang akan di assign adalah arObject yang memiliki nama yang sama dengan imageTracked
             goARObject.SetActive(true); //Tampilkan (aktifkan) arObject tersebut
             goARObject.transform.position = newPosition; //Posisikan juga arObject sesuai sesuai dengan posisi imageTracked
+            goARObject.transform.eulerAngles = newRotation;
             goARObject.transform.localScale = scaleFactor; //Skalasi arObject sesuai skala yang sudah di set di awal
 
             foreach (GameObject go in arObjects.Values) //Untuk setiap arObject lainnya
@@ -263,7 +263,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         }
     }
 
-    void ReAssignGameObject(string name, Vector3 newPosition)
+    void ReAssignGameObject(string name, Vector3 newPosition, Vector3 newRotation)
     {
         if (arObjects != null)
         //if (arObjectsToPlace != null)
@@ -271,6 +271,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             GameObject goARObject = arObjects[name];
             goARObject.SetActive(true);
             goARObject.transform.position = newPosition;
+            goARObject.transform.eulerAngles = newRotation;
             goARObject.transform.localScale = scaleFactor;
             foreach (GameObject go in arObjects.Values)
             {
