@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
-  m_Name: Catopsilia Scylla
+  m_Name: Catopsilia scylla
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 2627909816164820248, guid: 780915090249cea4094e7725cdaddef2, type: 3}
   insectKey: 1919344

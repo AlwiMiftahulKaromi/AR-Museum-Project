@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
-  m_Name: Cressida Cressida
+  m_Name: Cressida cressida
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 8711107364095498455, guid: ac3a717b8d274044d9706f3abea5ce81, type: 3}
   insectKey: 1937618

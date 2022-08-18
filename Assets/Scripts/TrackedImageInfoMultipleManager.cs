@@ -21,6 +21,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private RawImage insectRawImage;
     public GameObject loading;
 
+    /*[SerializeField]
+    private TextMeshProUGUI[] lonTexts;*/
     [SerializeField]
     private TextMeshProUGUI insectSpeciesText;
     [SerializeField]
@@ -58,6 +60,9 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private Dictionary<string, string> orderDictionary = new Dictionary<string, string>();
 
     private Dictionary<string, Texture2D> occurrenceMediaDictionary = new Dictionary<string, Texture2D>();
+
+    /*private Dictionary<string, List<float>> longitudeDictionary = new Dictionary<string, List<float>>();
+    private List<float> longitudeList = new List<float>();*/
     //till here
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
@@ -131,6 +136,10 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 {
                     insectOrderText.text = "Order: " + orderDictionary[currentActiveQR];
                 }
+                /*for (int i = 0; i < lonTexts.Length; i++)
+                {
+                    lonTexts[i].text = (longitudeDictionary[currentActiveQR][i].ToString());
+                }*/
                 if (occurrenceMediaDictionary != null)
                 {
                     loading.SetActive(true);
@@ -174,7 +183,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         }
         JSONNode insectInfo = JSON.Parse(insectInfoRequest.downloadHandler.text);
 
-        string insectScientificName = insectInfo["results"][0]["scientificName"];
+        string insectScientificName = insectInfo["results"][0]["acceptedScientificName"];
         scientificNameDictionary.Add(nama, insectScientificName);
 
         string insectGenus = insectInfo["results"][0]["genus"];
@@ -185,6 +194,22 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
         string insectOrder = insectInfo["results"][0]["order"];
         orderDictionary.Add(nama, insectOrder);
+
+        /*//new
+        for (int i = 0; i < lonTexts.Length; i++)
+        {
+            float insectLongitude = insectInfo["results"][i]["decimalLongitude"];
+            //print(insectLongitude);
+            longitudeList.Add(insectLongitude);
+        }
+        longitudeDictionary.Add(nama, longitudeList);
+        *//*for (int i = 0; i < lonTexts.Length; i++)
+        {
+            Debug.Log(nama);
+            Debug.Log(longitudeDictionary[nama][i]);
+        }*//*
+        longitudeList.Clear();
+        //*/
 
         string insectMediaURL = insectInfo["results"][0]["media"][0]["identifier"];
 

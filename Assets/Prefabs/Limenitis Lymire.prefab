@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5011106373727697298}
   - component: {fileID: 3590217063531683788}
   m_Layer: 0
-  m_Name: Limenitis Lymire
+  m_Name: Limenitis lymire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

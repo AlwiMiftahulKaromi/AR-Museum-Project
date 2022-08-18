@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 1077328289523892463}
   - component: {fileID: 3355179329778870119}
   m_Layer: 0
-  m_Name: Papilio Blumei
+  m_Name: Papilio blumei
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

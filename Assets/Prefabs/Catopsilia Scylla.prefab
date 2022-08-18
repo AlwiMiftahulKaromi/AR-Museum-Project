@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7658826378176301241}
   - component: {fileID: 7154633888140627799}
   m_Layer: 0
-  m_Name: Catopsilia Scylla
+  m_Name: Catopsilia scylla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

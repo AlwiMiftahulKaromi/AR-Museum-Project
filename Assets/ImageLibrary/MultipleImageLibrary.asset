@@ -18,42 +18,102 @@ MonoBehaviour:
     m_Storage: []
   m_Images:
   - m_SerializedGuid:
-      m_GuidLow: 4859884432776235548
-      m_GuidHigh: 1281088604698200194
+      m_GuidLow: 4819772355369882398
+      m_GuidHigh: 9971433885283085490
     m_SerializedTextureGuid:
-      m_GuidLow: 16808744960387332396
-      m_GuidHigh: 12623873201127803915
-    m_Size: {x: 0.05, y: 0.05}
+      m_GuidLow: 8251779376439182543
+      m_GuidHigh: 16587333608044840873
+    m_Size: {x: 0.15, y: 0.15}
     m_SpecifySize: 1
-    m_Name: Catopsilia Scylla
+    m_Name: Attacus atlas
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5449862146289800757
-      m_GuidHigh: 8699558443390431644
+      m_GuidLow: 5519407077414241000
+      m_GuidHigh: 13073449304260525493
     m_SerializedTextureGuid:
-      m_GuidLow: 13773199644830172815
-      m_GuidHigh: 10990639159401426506
-    m_Size: {x: 0.05, y: 0.05}
+      m_GuidLow: 11773754204189223253
+      m_GuidHigh: 17802804494068244459
+    m_Size: {x: 0.07, y: 0.07}
     m_SpecifySize: 1
-    m_Name: Limenitis Lymire
+    m_Name: Catopsilia scylla
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5682024871536408051
-      m_GuidHigh: 341676190258215333
+      m_GuidLow: 5612923683503612771
+      m_GuidHigh: 4695763466609656706
     m_SerializedTextureGuid:
-      m_GuidLow: 8985963481443093050
-      m_GuidHigh: 2162193209881269898
-    m_Size: {x: 0.05, y: 0.05}
+      m_GuidLow: 13426396446219764966
+      m_GuidHigh: 61773880201049675
+    m_Size: {x: 0.1, y: 0.1}
     m_SpecifySize: 1
-    m_Name: Papilio Blumei
+    m_Name: Chalcosoma atlas 1
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5082029768180678138
-      m_GuidHigh: 11618880804622158222
+      m_GuidLow: 5504225915811495994
+      m_GuidHigh: 4786365805621629344
     m_SerializedTextureGuid:
-      m_GuidLow: 8697829724895087503
-      m_GuidHigh: 7025961891668124233
-    m_Size: {x: 0.05, y: 0.05}
+      m_GuidLow: 10440620662894265002
+      m_GuidHigh: 4918707208672936955
+    m_Size: {x: 0.1, y: 0.1}
     m_SpecifySize: 1
-    m_Name: Cressida Cressida
+    m_Name: Chalcosoma atlas
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4629165973583998295
+      m_GuidHigh: 4713730714375290277
+    m_SerializedTextureGuid:
+      m_GuidLow: 13093097222847678869
+      m_GuidHigh: 13559818450393810057
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: Cressida cressida
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5195491009089486205
+      m_GuidHigh: 17222823010577711010
+    m_SerializedTextureGuid:
+      m_GuidLow: 17948014921348285753
+      m_GuidHigh: 8390069757212864633
+    m_Size: {x: 0.2, y: 0.2}
+    m_SpecifySize: 1
+    m_Name: Eurycnema versirubra
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5463850311048392472
+      m_GuidHigh: 11104332356623387579
+    m_SerializedTextureGuid:
+      m_GuidLow: 10963078624238776379
+      m_GuidHigh: 10459335659273714681
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: Lethocerus indicus
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4621249066807110205
+      m_GuidHigh: 13270432420417175994
+    m_SerializedTextureGuid:
+      m_GuidLow: 18267900515784711925
+      m_GuidHigh: 5796032879037914664
+    m_Size: {x: 0.1, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: Limenitis lymire
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5560608182498539437
+      m_GuidHigh: 17103523315155164860
+    m_SerializedTextureGuid:
+      m_GuidLow: 13286861418640597613
+      m_GuidHigh: 1613831710132184792
+    m_Size: {x: 0.12, y: 0.12}
+    m_SpecifySize: 1
+    m_Name: Papilio blumei
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5101486865762866847
+      m_GuidHigh: 17813422890053863053
+    m_SerializedTextureGuid:
+      m_GuidLow: 14169685989616732666
+      m_GuidHigh: 12811895669804170600
+    m_Size: {x: 0.2, y: 0.2}
+    m_SpecifySize: 1
+    m_Name: Pulchriphyllium pulchrifolium
     m_Texture: {fileID: 0}
