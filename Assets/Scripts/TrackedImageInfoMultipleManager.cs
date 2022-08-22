@@ -21,8 +21,10 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private RawImage insectRawImage;
     public GameObject loading;
 
-    /*[SerializeField]
-    private TextMeshProUGUI[] lonTexts;*/
+    [SerializeField]
+    private TextMeshProUGUI[] lonTexts;
+    [SerializeField]
+    private TextMeshProUGUI[] latTexts;
     [SerializeField]
     private TextMeshProUGUI insectSpeciesText;
     [SerializeField]
@@ -61,8 +63,13 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
     private Dictionary<string, Texture2D> occurrenceMediaDictionary = new Dictionary<string, Texture2D>();
 
-    /*private Dictionary<string, List<float>> longitudeDictionary = new Dictionary<string, List<float>>();
-    private List<float> longitudeList = new List<float>();*/
+    //ini baru
+    private Dictionary<string, List<float>> longitudeDictionary = new Dictionary<string, List<float>>();
+    private List<float> longitudeList = new List<float>();
+
+    private Dictionary<string, List<float>> latitudeDictionary = new Dictionary<string, List<float>>();
+    private List<float> latitudeList = new List<float>();
+    //sampe sini
     //till here
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
@@ -136,10 +143,22 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 {
                     insectOrderText.text = "Order: " + orderDictionary[currentActiveQR];
                 }
-                /*for (int i = 0; i < lonTexts.Length; i++)
+                //ini baru
+                if (longitudeDictionary != null)
                 {
-                    lonTexts[i].text = (longitudeDictionary[currentActiveQR][i].ToString());
-                }*/
+                    for (int i = 0; i < 10; i++)
+                    {
+                        lonTexts[i].text = (longitudeDictionary[currentActiveQR][i].ToString());
+                    }
+                }
+                if (latitudeDictionary != null)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        latTexts[i].text = (latitudeDictionary[currentActiveQR][i].ToString());
+                    }
+                }
+                //sampe sini
                 if (occurrenceMediaDictionary != null)
                 {
                     loading.SetActive(true);
@@ -195,21 +214,52 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         string insectOrder = insectInfo["results"][0]["order"];
         orderDictionary.Add(nama, insectOrder);
 
-        /*//new
-        for (int i = 0; i < lonTexts.Length; i++)
+        //ini baru
+        //Debug.Log(nama);
+        //longitudeList.Clear();
+        longitudeList = new List<float>();
+        for (int i = 0; i < 10; i++)
         {
             float insectLongitude = insectInfo["results"][i]["decimalLongitude"];
-            //print(insectLongitude);
-            longitudeList.Add(insectLongitude);
+            if (insectLongitude != null)
+            {
+                longitudeList.Add(insectLongitude);
+            }
+            else
+            {
+                longitudeList.Add(0);
+            }
+            
         }
-        longitudeDictionary.Add(nama, longitudeList);
-        *//*for (int i = 0; i < lonTexts.Length; i++)
+        /*string result = "List contents: ";
+        *//*foreach (var item in longitudeList)
         {
-            Debug.Log(nama);
-            Debug.Log(longitudeDictionary[nama][i]);
+            result += item.ToString() + ", ";
         }*//*
-        longitudeList.Clear();
-        //*/
+        for (int i = 0; i < 10; i++)
+        {
+            result += longitudeList[i].ToString() + ", ";
+        }
+        Debug.Log(result);*/
+
+        longitudeDictionary.Add(nama, longitudeList);
+
+        latitudeList = new List<float>();
+        for (int i = 0; i < 10; i++)
+        {
+            float insectLatitude = insectInfo["results"][i]["decimalLatitude"];
+            if (insectLatitude != null)
+            {
+                latitudeList.Add(insectLatitude);
+            }
+            else
+            {
+                latitudeList.Add(0);
+            }
+
+        }
+        latitudeDictionary.Add(nama, latitudeList);
+        //sampe sini
 
         string insectMediaURL = insectInfo["results"][0]["media"][0]["identifier"];
 

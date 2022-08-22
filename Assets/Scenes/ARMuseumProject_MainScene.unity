@@ -3259,6 +3259,28 @@ MonoBehaviour:
   noImageFound: {fileID: 2800000, guid: 08684c9d6f257f5478b618a7c3f4748d, type: 3}
   insectRawImage: {fileID: 1141630140}
   loading: {fileID: 654588218}
+  lonTexts:
+  - {fileID: 1066175583}
+  - {fileID: 1479063356}
+  - {fileID: 1408078263}
+  - {fileID: 380028544}
+  - {fileID: 840266798}
+  - {fileID: 128556592}
+  - {fileID: 1908957335}
+  - {fileID: 1399160561}
+  - {fileID: 1451372593}
+  - {fileID: 47856466}
+  latTexts:
+  - {fileID: 1440337383}
+  - {fileID: 656633231}
+  - {fileID: 1088938619}
+  - {fileID: 1879859876}
+  - {fileID: 725204669}
+  - {fileID: 341949084}
+  - {fileID: 493995351}
+  - {fileID: 612965279}
+  - {fileID: 713794059}
+  - {fileID: 1981893271}
   insectSpeciesText: {fileID: 2081523165}
   insectGenusText: {fileID: 504648124}
   insectFamilyText: {fileID: 1869874559}
