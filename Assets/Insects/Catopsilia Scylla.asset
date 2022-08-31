@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
   m_Name: Catopsilia scylla
   m_EditorClassIdentifier: 
-  insectPrefab: {fileID: 2627909816164820248, guid: 780915090249cea4094e7725cdaddef2, type: 3}
+  insectPrefab: {fileID: 8119509049847759077, guid: 650b626dcbe981446b80281962c3adc6, type: 3}
   insectKey: 1919344
   insectDescription: ini kupu-kupu kuning
-  insectImage: {fileID: 2800000, guid: 2406392ca87ce9440bcccbd2ca0131af, type: 3}

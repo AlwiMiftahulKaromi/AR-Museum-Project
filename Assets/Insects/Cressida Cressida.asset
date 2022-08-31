@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
   m_Name: Cressida cressida
   m_EditorClassIdentifier: 
-  insectPrefab: {fileID: 8711107364095498455, guid: ac3a717b8d274044d9706f3abea5ce81, type: 3}
+  insectPrefab: {fileID: 5010358446859517684, guid: ac3a717b8d274044d9706f3abea5ce81, type: 3}
   insectKey: 1937618
   insectDescription: ini kupu-kupu coklat
-  insectImage: {fileID: 2800000, guid: 3d348b8fe60d78b449624f861d3b8161, type: 3}

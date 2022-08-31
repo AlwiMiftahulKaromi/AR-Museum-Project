@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ARMuseumProject_MainScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/ARMuseumProject_Help.unity
+    guid: 7ac5959bf3774ef4aad54f2c372866e7
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 29f30e02658493c40853aeff59c2a53a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 16c94690856a9ac4aa905cd06e516eca, type: 2}

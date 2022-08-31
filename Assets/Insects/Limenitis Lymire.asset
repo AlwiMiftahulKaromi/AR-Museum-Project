@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
   m_Name: Limenitis lymire
   m_EditorClassIdentifier: 
-  insectPrefab: {fileID: 4347762478857591319, guid: 3ad20ab4c6f0fe24f9aceb0ee2fff9a3, type: 3}
+  insectPrefab: {fileID: 2169369110861154430, guid: 3ad20ab4c6f0fe24f9aceb0ee2fff9a3, type: 3}
   insectKey: 5132109
   insectDescription: ini kupu-kupu item
-  insectImage: {fileID: 2800000, guid: 7aa3868f3c1abf244aae9ea615988698, type: 3}

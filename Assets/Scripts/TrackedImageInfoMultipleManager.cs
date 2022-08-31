@@ -45,8 +45,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     [SerializeField]
     private Insect[] arScriptableObjects;
 
-    [SerializeField]
-    private Vector3 scaleFactor = new Vector3(0.05f, 0.05f, 0.05f); //untuk scaling prefab
+    /*[SerializeField]
+    private Vector3 scaleFactor = new Vector3(0.05f, 0.05f, 0.05f); //untuk scaling prefab*/
 
     private ARTrackedImageManager m_TrackedImageManager; //menamakan script ARTrackedImageManager as m_TrackedImageManager
                                                          //berfungsi untuk mendeklarasikan Serialized Library (XR Reference Image Library) yang nantinya akan digunakan
@@ -133,15 +133,15 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 }
                 if (genusDictionary != null)
                 {
-                    insectGenusText.text = "Genus: " + genusDictionary[currentActiveQR];
+                    insectGenusText.text = genusDictionary[currentActiveQR];
                 }
                 if (familyDictionary != null)
                 {
-                    insectFamilyText.text = "Family: " + familyDictionary[currentActiveQR];
+                    insectFamilyText.text = familyDictionary[currentActiveQR];
                 }
                 if (orderDictionary != null)
                 {
-                    insectOrderText.text = "Order: " + orderDictionary[currentActiveQR];
+                    insectOrderText.text = orderDictionary[currentActiveQR];
                 }
                 //ini baru
                 if (longitudeDictionary != null)
@@ -325,7 +325,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             goARObject.SetActive(true); //Tampilkan (aktifkan) arObject tersebut
             goARObject.transform.position = newPosition; //Posisikan juga arObject sesuai sesuai dengan posisi imageTracked
             goARObject.transform.eulerAngles = newRotation;
-            goARObject.transform.localScale = scaleFactor; //Skalasi arObject sesuai skala yang sudah di set di awal
+            //goARObject.transform.localScale = scaleFactor; //Skalasi arObject sesuai skala yang sudah di set di awal
 
             foreach (GameObject go in arObjects.Values) //Untuk setiap arObject lainnya
             {
@@ -347,7 +347,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             goARObject.SetActive(true);
             goARObject.transform.position = newPosition;
             goARObject.transform.eulerAngles = newRotation;
-            goARObject.transform.localScale = scaleFactor;
+            //goARObject.transform.localScale = scaleFactor;
             foreach (GameObject go in arObjects.Values)
             {
                 if (go.name == name)
