@@ -9,6 +9,8 @@ using UnityEngine.UI;
 using UnityEngine.XR.ARSubsystems;
 using SimpleJSON;
 using TMPro;
+using System.Linq;
+
 
 [RequireComponent(typeof(ARTrackedImageManager))]
 public class TrackedImageInfoMultipleManager : MonoBehaviour
@@ -16,11 +18,17 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     public string ImageName;
     [Space]
     [SerializeField]
+    private GameObject scanHelper;
+    [SerializeField]
     private Texture2D noImageFound;
     [SerializeField]
     private RawImage insectRawImage;
     public GameObject loading;
 
+    [SerializeField]
+    private TextMeshProUGUI countrysText;
+    [SerializeField]
+    private TextMeshProUGUI[] countryTexts;
     [SerializeField]
     private TextMeshProUGUI[] lonTexts;
     [SerializeField]
@@ -64,6 +72,12 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     private Dictionary<string, Texture2D> occurrenceMediaDictionary = new Dictionary<string, Texture2D>();
 
     //ini baru
+    private Dictionary<string, List<string>> countryDictionary = new Dictionary<string, List<string>>();
+    private List<string> countryList = new List<string>();
+    private Dictionary<string, string> countryDistinctDictionary = new Dictionary<string, string>();
+    private List<string> countrys = new List<string>();
+    private List<string> countryDistinctList = new List<string>();
+
     private Dictionary<string, List<float>> longitudeDictionary = new Dictionary<string, List<float>>();
     private List<float> longitudeList = new List<float>();
 
@@ -91,8 +105,10 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             insectGBIFTaxonKey = arObject.insectKey;
             StartCoroutine(GetInsectAtTaxonKey(namaa, insectGBIFTaxonKey));
             //till here
+            //baru
+            newARObject.SetActive(false);
         }
-
+        
     }
 
     void OnEnable()
@@ -115,6 +131,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
             AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
             //Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
+            scanHelper.SetActive(false);
         }
 
         foreach (ARTrackedImage trackedImage in eventArgs.updated) //Ketika imageTracked yang terdeteksi berubah
@@ -144,6 +161,17 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                     insectOrderText.text = orderDictionary[currentActiveQR];
                 }
                 //ini baru
+                if (countryDistinctDictionary != null)
+                {
+                    countrysText.text = countryDistinctDictionary[currentActiveQR];
+                }
+                if (countryDictionary != null)
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        countryTexts[i].text = (countryDictionary[currentActiveQR][i].ToString());
+                    }
+                }
                 if (longitudeDictionary != null)
                 {
                     for (int i = 0; i < 10; i++)
@@ -217,6 +245,44 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         //ini baru
         //Debug.Log(nama);
         //longitudeList.Clear();
+        countryList = new List<string>();
+        for (int i = 0; i < 10; i++)
+        {
+            string insectCountry = insectInfo["results"][i]["country"];
+            if (insectCountry != null)
+            {
+                countryList.Add(insectCountry);
+            }
+            else
+            {
+                countryList.Add("Tidak ada");
+            }
+
+        }
+        countryDictionary.Add(nama, countryList);
+        
+        //list baru
+        countrys = new List<string>();
+        for (int i = 0; i < 20; i++)
+        {
+            string insectCountrys = insectInfo["results"][i]["country"];
+            if (insectCountrys != null)
+            {
+                countrys.Add(insectCountrys);
+            }
+        }
+        countrys.Sort();
+        countryDistinctList = new List<string>();
+        countryDistinctList = countrys.Distinct().ToList();
+        string result = "";
+        foreach (var co in countryDistinctList)
+        {
+            result += "- " + co.ToString() + "\n";
+        }
+        Debug.Log(result);
+        countryDistinctDictionary.Add(nama, result);
+        //sampe sini
+
         longitudeList = new List<float>();
         for (int i = 0; i < 10; i++)
         {
@@ -231,16 +297,6 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             }
             
         }
-        /*string result = "List contents: ";
-        *//*foreach (var item in longitudeList)
-        {
-            result += item.ToString() + ", ";
-        }*//*
-        for (int i = 0; i < 10; i++)
-        {
-            result += longitudeList[i].ToString() + ", ";
-        }
-        Debug.Log(result);*/
 
         longitudeDictionary.Add(nama, longitudeList);
 

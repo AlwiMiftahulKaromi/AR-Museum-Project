@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 4141954304919099493, guid: 4baaccab8f887314a9aa86e7f5d7d9aa, type: 3}
   insectKey: 1937940
-  insectDescription: ini kupu-kupu ijo
+  insectDescription: Kupu-kupu yang memiliki nama keren The Peacock atau Green Swallowtail
+    ini hanya bisa di temukan di pulau Sulawesi, Indonesia

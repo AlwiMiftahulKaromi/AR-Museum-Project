@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 8119509049847759077, guid: 650b626dcbe981446b80281962c3adc6, type: 3}
   insectKey: 1919344
-  insectDescription: ini kupu-kupu kuning
+  insectDescription: Kupu-kupu ini mempunyai nama sebutan Orange Emigrant

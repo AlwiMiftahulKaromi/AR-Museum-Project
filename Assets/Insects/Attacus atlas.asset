@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 2173591369976587632, guid: 6b8cf18570ab1474dadf9715fb6e486e, type: 3}
   insectKey: 5124716
-  insectDescription: ngengat terbesar
+  insectDescription: Ngengat terbesar yang satu ini biasa disebut dengan kupu-kupu
+    gajah, kupu-kupu barong, atau ngengat kepala ular

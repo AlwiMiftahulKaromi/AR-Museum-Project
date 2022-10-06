@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   insectPrefab: {fileID: 5010358446859517684, guid: ac3a717b8d274044d9706f3abea5ce81, type: 3}
   insectKey: 1937618
-  insectDescription: ini kupu-kupu coklat
+  insectDescription: Kupu-kupu ini biasa dikenal dengan nama Clearwing Swallowtail
+    atau Big Greasy
