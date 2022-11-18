@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
   m_Name: Catopsilia scylla
   m_EditorClassIdentifier: 
-  insectPrefab: {fileID: 8119509049847759077, guid: 650b626dcbe981446b80281962c3adc6, type: 3}
+  insectPrefab: {fileID: 7134500398998178909, guid: 2ec352bfabe2d3e408de3984b240ecb9, type: 3}
   insectKey: 1919344
   insectDescription: Kupu-kupu ini mempunyai nama sebutan Orange Emigrant

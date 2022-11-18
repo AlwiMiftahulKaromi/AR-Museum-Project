@@ -88,6 +88,27 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
 
+    //new stopwatch
+    bool stopwatchActive = false;
+    float currentTime;
+    public TextMeshProUGUI currentTimeText;
+
+	void Start()
+	{
+        currentTime = 0;
+	}
+
+	void Update()
+	{
+        if (stopwatchActive == true)
+        {
+            currentTime = currentTime + Time.deltaTime;
+        }
+        TimeSpan time = TimeSpan.FromSeconds(currentTime);
+        currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString();
+	}
+	//till here
+
 	void Awake()
     {
         m_TrackedImageManager = GetComponent<ARTrackedImageManager>();
@@ -108,12 +129,12 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             //baru
             newARObject.SetActive(false);
         }
-        
     }
 
     void OnEnable()
     {
         m_TrackedImageManager.trackedImagesChanged += OnTrackedImagesChanged;
+
     }
 
     void OnDisable()
@@ -121,7 +142,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         m_TrackedImageManager.trackedImagesChanged -= OnTrackedImagesChanged;
     }
 
-
+    
     void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
         foreach (ARTrackedImage trackedImage in eventArgs.added) //Ketika salah satu dari setiap trackedImage yang berada di Serialized Library terdeteksi kamera
@@ -130,11 +151,12 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             Vector3 newRot = new Vector3(trackedImage.transform.localEulerAngles.x, trackedImage.transform.localEulerAngles.y, trackedImage.transform.localEulerAngles.z);
             //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
             AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
-            //Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
-            scanHelper.SetActive(false);
+			//Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
+			scanHelper.SetActive(false);
+            stopwatchActive = false;
         }
 
-        foreach (ARTrackedImage trackedImage in eventArgs.updated) //Ketika imageTracked yang terdeteksi berubah
+		foreach (ARTrackedImage trackedImage in eventArgs.updated) //Ketika imageTracked yang terdeteksi berubah
         {
             if (trackedImage.trackingState == TrackingState.Tracking)
             {
@@ -197,16 +219,18 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 Vector3 newRot = new Vector3(trackedImage.transform.localEulerAngles.x, trackedImage.transform.localEulerAngles.y, trackedImage.transform.localEulerAngles.z);
                 //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
                 AssignGameObject(currentActiveQR, trackedImage.transform.position, newRot);
+                scanHelper.SetActive(false);
+                stopwatchActive = false;
             }
             else
             {
                 if (currentActiveQR != trackedImage.referenceImage.name)
                 {
                     Vector3 newRot = new Vector3(trackedImage.transform.localEulerAngles.x, trackedImage.transform.localEulerAngles.y, trackedImage.transform.localEulerAngles.z);
-                    //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
-                    ReAssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
+					//Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
+					ReAssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
                 }
-            }
+			}
         }
         
         foreach (ARTrackedImage trackedImage in eventArgs.removed)
@@ -331,6 +355,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             Debug.Log("Loading...");
             //WWW wwwLoader = new WWW(insectSpriteSmallURL); //create WWW object pointing to the url
             loading.SetActive(true);
+            stopwatchActive = false; //stopwatch mulai
+            currentTime = 0; //reset stopwatch
             //yield return wwwLoader; //start loading whatever in that url (delay happens here)
 
             if (!File.Exists(Application.persistentDataPath + ImageName))
@@ -343,6 +369,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                     //when image downloaded...
                     Debug.Log("Loaded");
                     loading.SetActive(false);
+                    stopwatchActive = true; //stopwatch mulai
                     Texture2D textureNew = wwwLoader.texture;
                     //insectRawImage.texture = textureNew;
                     occurrenceMediaDictionary.Add(nama, textureNew);
@@ -361,6 +388,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 if (File.Exists(Application.persistentDataPath + ImageName))
             {
                 loading.SetActive(false);
+                stopwatchActive = true; //stopwatch mulai
                 byte[] uploadByte = File.ReadAllBytes(Application.persistentDataPath + ImageName);
                 Texture2D textureNew = new Texture2D(10, 10);
                 textureNew.LoadImage(uploadByte);

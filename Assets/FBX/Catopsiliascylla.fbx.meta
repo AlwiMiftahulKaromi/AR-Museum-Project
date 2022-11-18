@@ -9,9 +9,14 @@ ModelImporter:
   - first:
       74: 1448620525260401143
     second: Catopsiliascylla|Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Catopsilia scylla
+    second: {fileID: 2100000, guid: 1dc6a46cde71d734b84879a8a047e4b8, type: 2}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
