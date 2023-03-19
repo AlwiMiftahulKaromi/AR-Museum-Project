@@ -88,26 +88,26 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
     string currentActiveQR; //variabel yang nantinya digunakan untuk menyimpan nama trackedImage
 
-    //new stopwatch
-    bool stopwatchActive = false;
-    float currentTime;
-    public TextMeshProUGUI currentTimeText;
+    /*//new stopwatch
+    bool stopwatchactive = false;
+    float currenttime;
+    public textmeshprougui currenttimetext;
 
-	void Start()
+	void start()
 	{
-        currentTime = 0;
+        currenttime = 0;
 	}
 
-	void Update()
+	void update()
 	{
-        if (stopwatchActive == true)
+        if (stopwatchactive == true)
         {
-            currentTime = currentTime + Time.deltaTime;
+            currenttime = currenttime + time.deltatime;
         }
-        TimeSpan time = TimeSpan.FromSeconds(currentTime);
-        currentTimeText.text = time.Minutes.ToString() + ":" + time.Seconds.ToString() + ":" + time.Milliseconds.ToString();
+        timespan time = timespan.fromseconds(currenttime);
+        currenttimetext.text = time.minutes.tostring() + ":" + time.seconds.tostring() + ":" + time.milliseconds.tostring();
 	}
-	//till here
+	//till here*/
 
 	void Awake()
     {
@@ -153,7 +153,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position, newRot);
 			//Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
 			scanHelper.SetActive(false);
-            stopwatchActive = false;
+            //stopwatchActive = false;
         }
 
 		foreach (ARTrackedImage trackedImage in eventArgs.updated) //Ketika imageTracked yang terdeteksi berubah
@@ -220,7 +220,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 //Vector3 newRot = new Vector3(trackedImage.transform.eulerAngles.x, trackedImage.transform.eulerAngles.y, trackedImage.transform.eulerAngles.z);
                 AssignGameObject(currentActiveQR, trackedImage.transform.position, newRot);
                 scanHelper.SetActive(false);
-                stopwatchActive = false;
+                //stopwatchActive = false;
             }
             else
             {
@@ -355,8 +355,8 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
             Debug.Log("Loading...");
             //WWW wwwLoader = new WWW(insectSpriteSmallURL); //create WWW object pointing to the url
             loading.SetActive(true);
-            stopwatchActive = false; //stopwatch mulai
-            currentTime = 0; //reset stopwatch
+            //stopwatchActive = false; //stopwatch mulai
+            //currentTime = 0; //reset stopwatch
             //yield return wwwLoader; //start loading whatever in that url (delay happens here)
 
             if (!File.Exists(Application.persistentDataPath + ImageName))
@@ -369,7 +369,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                     //when image downloaded...
                     Debug.Log("Loaded");
                     loading.SetActive(false);
-                    stopwatchActive = true; //stopwatch mulai
+                    //stopwatchActive = true; //stopwatch mulai
                     Texture2D textureNew = wwwLoader.texture;
                     //insectRawImage.texture = textureNew;
                     occurrenceMediaDictionary.Add(nama, textureNew);
@@ -388,7 +388,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 if (File.Exists(Application.persistentDataPath + ImageName))
             {
                 loading.SetActive(false);
-                stopwatchActive = true; //stopwatch mulai
+                //stopwatchActive = true; //stopwatch mulai
                 byte[] uploadByte = File.ReadAllBytes(Application.persistentDataPath + ImageName);
                 Texture2D textureNew = new Texture2D(10, 10);
                 textureNew.LoadImage(uploadByte);

@@ -3811,7 +3811,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 457e6def567633244b940a16b105e5d6, type: 2}
   - {fileID: 11400000, guid: c1759270ded7245449cd8d8a5cd8e0d9, type: 2}
   - {fileID: 11400000, guid: 351097524c9bae1498f54072a0867333, type: 2}
-  currentTimeText: {fileID: 1367819996}
 --- !u!114 &873980599
 MonoBehaviour:
   m_ObjectHideFlags: 0

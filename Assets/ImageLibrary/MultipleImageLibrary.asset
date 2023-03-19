@@ -41,8 +41,8 @@ MonoBehaviour:
       m_GuidLow: 5612923683503612771
       m_GuidHigh: 4695763466609656706
     m_SerializedTextureGuid:
-      m_GuidLow: 13426396446219764966
-      m_GuidHigh: 61773880201049675
+      m_GuidLow: 10440620662894265002
+      m_GuidHigh: 4918707208672936955
     m_Size: {x: 0.1, y: 0.1}
     m_SpecifySize: 1
     m_Name: Chalcosoma atlas 1
@@ -51,11 +51,11 @@ MonoBehaviour:
       m_GuidLow: 5504225915811495994
       m_GuidHigh: 4786365805621629344
     m_SerializedTextureGuid:
-      m_GuidLow: 10440620662894265002
-      m_GuidHigh: 4918707208672936955
+      m_GuidLow: 13426396446219764966
+      m_GuidHigh: 61773880201049675
     m_Size: {x: 0.1, y: 0.1}
     m_SpecifySize: 1
-    m_Name: Chalcosoma atlas
+    m_Name: Chalcosoma atlas 2
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 4629165973583998295

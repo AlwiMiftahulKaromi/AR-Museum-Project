@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
   m_Name: Lethocerus indicus
   m_EditorClassIdentifier: 
-  insectPrefab: {fileID: 2627909816164820248, guid: 23cf60aba858fe94d90870f78a87c9e7, type: 3}
+  insectPrefab: {fileID: 7635179710179734344, guid: 0a7830ec8e425864eaf5888f7dc42ca8, type: 3}
   insectKey: 5866475
   insectDescription: Merupakan kumbang air raksasa dari keluarga Belostomatidae

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56aa99ef4db14f4abe47548e11a911b, type: 3}
   m_Name: Pulchriphyllium pulchrifolium
   m_EditorClassIdentifier: 
-  insectPrefab: {fileID: 2627909816164820248, guid: 0bcbaeb455f1e5846af9712275234b2b, type: 3}
+  insectPrefab: {fileID: 425156388233827257, guid: f9d65d26f18863640a1797098b03e1dc, type: 3}
   insectKey: 1415418
   insectDescription: Mempunyai sebutan lain yaitu Javanese Leaf Insect (serangga
     daun dari pulau Jawa)
